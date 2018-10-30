@@ -1,10 +1,10 @@
 
 # Avaliação de skills
 
-Toda informação necessária para realização do teste está presente neste arquivo. <br>
+Toda informação necessária para realização do teste está presente neste arquivo.
 Caso ainda haja dúvidas envie um email para [join@atlastechnol.com](mailto:join@atlastechnol.com) com o assunto **"DÚVIDAS ATLASTECA"**.
 
-O tempo da avaliação é de 7 dias contados a partir do momento que foi liberado o acesso a esse repositório.
+O tempo da avaliação é de 7 dias contados a partir do momento que foi liberado o acesso a este repositório.
 
 Para entrega da avaliação é necessário criar um repositório **PRIVADO** e compartilhar o mesmo com nosso email, [join@atlastechnol.com](mailto:join@atlastechnol.com).
 
@@ -35,7 +35,7 @@ php artisan migrate --seed
     - Limitar registros, ações de editar e deletar filmes somente para administradores
     
 3. **Página Editar Filmes**  
-     - Adicionar atributo duração do filme e mostrar na página individual de cada filme para o usuário;
+     - Adicionar atributo duração do filme e mostrar na página individual de cada filme para o usuário
     
 4. **Modificar Listagem da Home**
      - Exibir um contador com todos filmes registrados no sistema
@@ -44,14 +44,14 @@ php artisan migrate --seed
 ### Normal Task's:
 
 1. **Ordenar listagem da HOME**
-     - Ordenar listagem da home por data de lançamento do filme de forma descendente (Utilizar globalscopes)
+     - Ordenar listagem da home por data de lançamento do filme de forma descendente (utilizar globalscopes)
 
 2. **Criar página contato**
      - Criar uma página de contato e salvar os dados do formulário em banco de dados (criar tabela e página)
 
 3. **Alterar estrutura do banco**  
      - Poder escolher mais de um gênero para cada filme
-     - Quando deletar um filme não deletar ele do banco, somente desativar da listagem.
+     - Quando deletar um filme não deletar ele do banco, somente desativar da listagem
 
 4. **Adicionar imagens nos filmes**
      - Criar um model de imagens e relacionar com o de filmes
