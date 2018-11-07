@@ -34,6 +34,20 @@ Route::get('/',
            ]
 );
 
+Route::get('/contact',
+           [
+               'as' => 'contact',
+               'uses' => 'AppController@contact'
+           ]
+);
+
+Route::post('/submitcontact',
+           [
+               'as' => 'submit.contact',
+               'uses' => 'AppController@submitcontact'
+           ]
+);
+
 Route::get('/dashboard',
            [
                'as' => 'user.dashboard',

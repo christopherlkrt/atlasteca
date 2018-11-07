@@ -30,7 +30,11 @@ class UserController extends Controller
         $user = \Auth::user();
 
         $movies = Movie::get();
-
-        return view('auth.dashboard', compact('user','movies'));
+        if ($user->admin==1) {
+            return view('auth.dashboard', compact('user','movies'));
+        }
+        else{
+            return redirect()->route('home');
+        }
     }
 }

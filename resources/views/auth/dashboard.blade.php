@@ -36,6 +36,7 @@
                                     <th>#</th>
                                     <th>Nome</th>
                                     <th>Data Lançamento</th>
+                                    <th>Duração</th>
                                     <th>Ações</th>
                                 </tr>
                                 </thead>
@@ -45,6 +46,7 @@
                                         <td>{{$movie->id}}</td>
                                         <td>{{$movie->title}}</td>
                                         <td>{{$movie->year}}</td>
+                                        <td>{{$movie->duration}}</td>
                                         <td>
                                             <a href="{{ route('movie.edit', [$movie->id]) }}">
                                                 <button type="button" class="btn btn-primary">

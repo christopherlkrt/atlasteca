@@ -25,8 +25,12 @@
 				@if (Auth::guest())
 					<li><a href="{{ url('/login') }}">Login</a></li>
 					<li><a href="{{ url('/register') }}">Register</a></li>
+					<li><a href="{{ url('/contact') }}">Contact</a></li>
 				@else
+					@if (Auth::user()->admin==1)
 					<li><a href="{{ url('/dashboard') }}"><i class="fa fa-btn fa-dashboard"></i>Dashboard</a></li>
+					@endif
+					<li><a href="{{ url('/contact') }}">Contact</a></li>
 					<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
 				@endif
 			</ul>

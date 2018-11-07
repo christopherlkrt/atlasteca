@@ -87,6 +87,7 @@ body {
 }
 .lists .item-movie a .cover {
   width: 275px;
+  height: 27vh;
   max-width: 100%;
   border: 1px grey solid;
 }

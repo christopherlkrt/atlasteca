@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Gender;
 use App\Movie;
+use App\Poster;
 
 class MovieController extends Controller
 {
@@ -19,6 +20,7 @@ class MovieController extends Controller
     public function show($movie_id,$movie_slug=null){
 
         $movie = Movie::find($movie_id);
+        $img = Movie::with('poster')->find($movie_id);
 
         //Redirect to home
         if( ! $movie){
@@ -33,7 +35,7 @@ class MovieController extends Controller
                 ->route('movie.show', [$movie->id, $movie->slug]);
         }
 
-        return view('pages.show-movie', compact('movie'));
+        return view('pages.show-movie', compact('movie', 'img'));
     }
 
     public function create(){
@@ -49,22 +51,39 @@ class MovieController extends Controller
     public function store(){
 
         $inputs = $this->request->all();
-
+        
         $this->validate($this->request, [
             'title' => 'required|max:255',
             'description' => 'required',
             'gender' => 'required',
             'year' => 'numeric|min:1900|max:2100',
+            'duration' => 'required',
         ]);
 
         $movie = New Movie();
         $movie->user_id = \Auth::user()->id;
-        $movie->gender_id = $inputs['gender'];
         $movie->title = $inputs['title'];
         $movie->slug = str_slug($inputs['title']);
         $movie->description = $inputs['description'];
         $movie->year = $inputs['year'];
+        $movie->duration = $inputs['duration'];
         $movie->save();
+
+        foreach ($inputs['gender'] as $genders) {
+        
+        $movie->genders()->attach($genders);
+        }
+
+        if ($this->request->hasFile('image')) {
+        $image = $this->request->file('image');
+        $destinationPath = public_path('/images');
+        $name = time().rand(5, 1500).'.'.$image->getClientOriginalExtension();
+        $image->move($destinationPath, $name);
+
+        Poster::create(['movie_id' => $movie->id,'image' => $name]);
+        }
+
+
 
         return redirect()
             ->route('user.dashboard')
@@ -76,7 +95,7 @@ class MovieController extends Controller
     public function edit($movie_id)
     {
         $movie = Movie::find($movie_id);
-
+        $gender_movie = Movie::with('genders')->find($movie_id);
         //Redirect to adm dashboard
         if (! $movie) {
             return redirect()
@@ -85,8 +104,10 @@ class MovieController extends Controller
         }
 
         $genders = Gender::get();
+   
 
-        return view('pages.edit-movie', compact('genders','movie'));
+
+        return view('pages.edit-movie', compact('genders', 'gender_movie', 'movie'));
     }
 
     public function update($movie_id){
@@ -107,6 +128,7 @@ class MovieController extends Controller
             'description' => 'required',
             'gender' => 'required',
             'year' => 'numeric|min:1900|max:2100',
+            'duration' => 'required',
         ]);
 
         $movie->gender_id = $inputs['gender'];
@@ -114,6 +136,7 @@ class MovieController extends Controller
         $movie->slug = str_slug($inputs['title']);
         $movie->description = $inputs['description'];
         $movie->year = $inputs['year'];
+        $movie->duration = $inputs['duration'];
         $movie->save();
 
         return redirect()
@@ -134,7 +157,7 @@ class MovieController extends Controller
                 ->withErrors("Filme não encontrado!");
         }
 
-        $movie->delete();
+         $movie->delete();
 
         return redirect()
             ->route('user.dashboard')
